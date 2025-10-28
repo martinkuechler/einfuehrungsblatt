@@ -6,7 +6,7 @@ app = FastAPI()
 
 @app.get("/")
 async def root() -> str:
-    return "You can visit YourLocalIP/api/ping or YourLocalIP/api/pong"
+    return "You can visit yourLocalIP/api/ping or yourLocalIP/api/pong"
 
 
 @app.get("/api/ping")
