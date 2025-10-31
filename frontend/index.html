@@ -9,11 +9,37 @@
 <body>
 <button onclick="Ping()">Ping</button>
 <button onclick="Pong()">Pong</button>
+<form onsubmit="createSubmit(event)">
+    <input type="number" id="id" placeholder="id">
+    <input type="text" id="title" placeholder="title">
+    <input type="text" id="content" placeholder="content">
+    <button type="submit">Create Item</button>
+    
+</form>
 
 
 
 </body>
 <script>
+    window.onload = function() {
+        fetch("http://localhost:8000/api/items")
+            .then(response =>response.json())
+            .then(data=>{
+                for (let item of data){
+                    let itemElement=document.createElement("div");
+                    itemElement.innerHTML=`<h3>${item.title} (ID: ${item.id})</h3><p>${item.content}</p>`;
+                    let button=document.createElement("button");
+                    button.innerText="Delete";
+                    button.type="button";
+                    button.addEventListener("click",()=>deleteItem(item.id));
+                    document.body.appendChild(itemElement);
+                    document.body.appendChild(button);
+                }
+
+            })
+            
+    };
+
     function Ping() {
         fetch('http://localhost:8000/api/ping')
             .then(response => response.text())
@@ -30,6 +56,32 @@
                 console.log(text);
             })
     }
+    function createSubmit(event){
+        event.preventDefault();
+        var id= document.getElementById("id").value;
+        var title= document.getElementById("title").value;
+        var content= document.getElementById("content").value;
+        fetch("http://localhost:8000/api/items",{
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                id: id,
+                title: title,
+                content: content
+            })
+        })
+        location.reload();
+
+    }
+    async function deleteItem(id) {
+        await fetch(`http://localhost:8000/api/items/${id}`,{
+            method: "DELETE"
+            });
+            location.reload();
+        }
+    
 
 </script>
 </html>
