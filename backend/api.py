@@ -1,13 +1,12 @@
 from fastapi import FastAPI
+from fastapi.responses import FileResponse
 import datetime
 
 app = FastAPI()
 
-
 @app.get("/")
-async def root() -> str:
-    return "You can visit yourLocalIP/api/ping or yourLocalIP/api/pong"
-
+def index():
+    return FileResponse("frontend/index.html")
 
 @app.get("/api/ping")
 async def ping() -> dict:
@@ -17,5 +16,7 @@ async def ping() -> dict:
 
 @app.post("/api/pong")
 async def pong() -> str:
-    return "Pong"
+        print("pong received")   # <-- loggt ins Server-Log
+        return ""
+        
 

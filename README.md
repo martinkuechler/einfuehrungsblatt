@@ -37,4 +37,3 @@ pip install -r requirements.txt
 uvicorn api:app --reload
 ```
 Der Server läuft standardmäßig auf: http://127.0.0.1:8000
-

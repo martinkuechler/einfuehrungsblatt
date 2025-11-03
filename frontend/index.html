@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Einführungsblatt</title>
+</head>
+<body>
+<button onclick="Ping()">Ping</button>
+<button onclick="Pong()">Pong</button>
+
+
+
+</body>
+<script>
+    function Ping() {
+        fetch('http://localhost:8000/api/ping')
+            .then(response => response.text())
+            .then(text => {
+                console.log(text);
+                timestamp=document.createTextNode(text);
+                document.body.appendChild(timestamp);
+            })
+    }
+    function Pong() {
+        fetch('http://localhost:8000/api/pong',{method: "POST"})
+            .then(response => response.text())
+            .then(text => {
+                console.log(text);
+            })
+    }
+
+</script>
+</html>
