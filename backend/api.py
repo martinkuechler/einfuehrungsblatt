@@ -1,11 +1,12 @@
 from fastapi import FastAPI, Request
 from fastapi.responses import FileResponse
+from fastapi.responses import JSONResponse
 import datetime
 import sqlite3
 
 
 app = FastAPI()
-con=sqlite3.connect('todo.db')
+con=sqlite3.connect('todo.db', check_same_thread=False)
 cur = con.cursor()
 
 con.commit()
@@ -54,7 +55,7 @@ async def create_item(request: Request):
          print("Fehlende Parameter")
          return "Fehlende Parameter"
      if cur.execute("SELECT * FROM todo WHERE id=?",(body["id"],)).fetchone() is not None:
-         return "Eintrag mit dieser ID existiert bereits"
+         return(JSONResponse(status_code=409, content="Item mit dieser ID existiert bereits"))
 
      res=cur.execute("INSERT INTO todo VALUES (?,?,?,?)",(body["id"],body['title'],body['content'],datetime.datetime.now().isoformat()))
      print(res)
@@ -77,7 +78,15 @@ async def get_items():
 
 @app.get("/api/items/{id}")
 async def get_item(id):
-     pass
+    item=cur.execute("SELECT * FROM todo WHERE id=?",(id,)).fetchone()
+    if item is None:
+        return JSONResponse(status_code=404, content="Item nicht gefunden")
+    return {
+        "id":item[0],
+        "title":item[1],
+        "content":item[2],
+        "created_at":item[3]
+    }
 
 @app.delete("/api/items/{id}")
 async def delete_item(id: int ):
