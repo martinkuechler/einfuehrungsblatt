@@ -57,7 +57,10 @@ async def create_item(request: Request):
      if cur.execute("SELECT * FROM todo WHERE id=?",(body["id"],)).fetchone() is not None:
          return(JSONResponse(status_code=409, content="Item mit dieser ID existiert bereits"))
 
-     res=cur.execute("INSERT INTO todo VALUES (?,?,?,?)",(body["id"],body['title'],body['content'],datetime.datetime.now().isoformat()))
+     res=cur.execute(
+                    "INSERT INTO todo VALUES (?,?,?,?)",
+                     (body["id"],body['title'],body['content'],datetime.datetime.now().isoformat())
+                     )
      print(res)
      con.commit()
 

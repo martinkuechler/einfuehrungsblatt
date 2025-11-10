@@ -1,5 +1,4 @@
 # tests/test_api.py
-import pytest
 from fastapi.testclient import TestClient
 
 # WICHTIG: Pfad anpassen, falls deine Datei anders heißt/liegt.
