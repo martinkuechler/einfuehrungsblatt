@@ -1,0 +1,9 @@
+line-length = 100  # erlaubt lange Zeilen
+target-version = "py312"
+
+[lint]
+select = ["E501", "F401"]  #501=max 100 zeichen/zeilen 401=unused imports
+
+[format]
+quote-style = "double" #selbsterklärend 
+
