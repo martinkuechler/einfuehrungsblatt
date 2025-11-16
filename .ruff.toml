@@ -1,4 +1,4 @@
-line-length = 100  # erlaubt lange Zeilen
+line-length = 130  # erlaubt lange Zeilen
 target-version = "py312"
 
 [lint]
