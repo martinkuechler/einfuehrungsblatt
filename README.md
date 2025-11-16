@@ -1,4 +1,8 @@
-[![Build Status](https://github.com/martinkuechler/einfuehrungsblatt/actions/workflows/main.yml/badge.svg)](https://github.com/martinkuechler/einfuehrungsblatt/actions/workflows/main.yml)
+![Build Status](https://github.com/martinkuechler/einfuehrungsblatt/actions/workflows/main.yml)
+![GitHub License](https://img.shields.io/github/license/martinkuechler/einfuehrungsblatt)
+![Python](https://img.shields.io/badge/Python-3.12-blue?logo=python&logoColor=white)
+
+
 
 
 
@@ -81,4 +85,5 @@ pip install -r requirements.txt
 uvicorn api:app --reload
 ```
 Der Server läuft standardmäßig auf: http://127.0.0.1:8000
+
 
